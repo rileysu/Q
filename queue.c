@@ -93,7 +93,7 @@ void Qclear(queuerep_t* qr){
 	qr->size = 0;
 }
 
-void QfreeAll(queuerep_t* qr){
+void Qfree(queuerep_t* qr){
 	assert(qr != NULL);
 	Qclear(qr);
 	free(qr);
@@ -125,6 +125,18 @@ int QcontainsCount(queuerep_t* qr, int data){
 		if (curr->data == data){
 			found++;
 		}
+		curr = curr->next;
+	}
+
+	return found;
+}
+
+int QcontainsAll(queuerep_t* qrto, queuerep_t* qrfrom){
+	queuenode_t* curr = qrfrom->head;
+	int found = 1;
+
+	while(curr != NULL && found){
+		found = Qcontains(qrto,curr->data);
 		curr = curr->next;
 	}
 
