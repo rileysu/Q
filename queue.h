@@ -22,6 +22,7 @@ queuenode_t* QinitQueueNode();
 
 void Qadd(queuerep_t* qr, int data);
 void QaddAll(queuerep_t* qrnew, queuerep_t* qrold);
+void QcopyAll(queuerep_t* qrnew, queuerep_t* qrold);
 int Qpeek(queuerep_t* qr);
 int Qpoll(queuerep_t* qr);
 void Qclear(queuerep_t* qr);

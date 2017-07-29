@@ -22,7 +22,7 @@ queuenode_t* QinitQueueNode(){
 void Qadd(queuerep_t* qr, int data){
 	assert(qr != NULL);
 
-	if (qr->tail == NULL){
+	if (QisEmpty(qr)){
 		qr->tail = QinitQueueNode();
 		qr->head = qr->tail;
 	}
@@ -37,17 +37,22 @@ void Qadd(queuerep_t* qr, int data){
 
 void QaddAll(queuerep_t* qrnew, queuerep_t* qrold){
 	assert( (qrnew != NULL) && (qrold != NULL) );
-
-	if (!QisEmpty(qrold)){
-		queuenode_t* curr = qrold->head;
-
-		while(curr != NULL){
-			Qadd(qrnew,curr->data);
-			curr = curr->next;
-		}
-
+	while(!QisEmpty(qrold)){
+		Qadd(qrnew,Qpoll(qrold));
 	}
 }
+
+void QcopyAll(queuerep_t* qrnew, queuerep_t* qrold){
+        assert( (qrnew != NULL) && (qrold != NULL) );
+
+        queuenode_t* curr = qrold->head;
+
+        while(curr != NULL){
+		Qadd(qrnew,curr->data);
+		curr = curr->next;
+        }
+}
+
 
 int Qpeek(queuerep_t* qr){
 	assert ( (qr != NULL) && (qr->head != NULL) );
