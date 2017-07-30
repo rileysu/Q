@@ -20,7 +20,6 @@ queuenode_t* QinitQueueNode(){
 }
 
 void Qadd(queuerep_t* qr, int data){
-	assert(qr != NULL);
 
 	if (QisEmpty(qr)){
 		qr->tail = QinitQueueNode();
@@ -36,14 +35,12 @@ void Qadd(queuerep_t* qr, int data){
 }
 
 void QaddAll(queuerep_t* qrnew, queuerep_t* qrold){
-	assert( (qrnew != NULL) && (qrold != NULL) );
 	while(!QisEmpty(qrold)){
 		Qadd(qrnew,Qpoll(qrold));
 	}
 }
 
 void QcopyAll(queuerep_t* qrnew, queuerep_t* qrold){
-        assert( (qrnew != NULL) && (qrold != NULL) );
 
         queuenode_t* curr = qrold->head;
 
@@ -55,13 +52,11 @@ void QcopyAll(queuerep_t* qrnew, queuerep_t* qrold){
 
 
 int Qpeek(queuerep_t* qr){
-	assert ( (qr != NULL) && (qr->head != NULL) );
 
 	return qr->head->data;	
 }
 
 int Qpoll(queuerep_t* qr){
-	assert ( (qr != NULL) && (qr->head != NULL) );
 
 	queuenode_t* curr = qr->head;
 	int data = curr->data;
@@ -78,7 +73,6 @@ int Qpoll(queuerep_t* qr){
 }
 
 void Qclear(queuerep_t* qr){
-	assert(qr != NULL);
 	queuenode_t* curr = qr->head;
 	
 	for (int i = 0; i < qr->size; i++){
@@ -94,13 +88,11 @@ void Qclear(queuerep_t* qr){
 }
 
 void Qfree(queuerep_t* qr){
-	assert(qr != NULL);
 	Qclear(qr);
 	free(qr);
 }
 
 int Qcontains(queuerep_t* qr, int data){
-	assert(qr != NULL);
 	queuenode_t* curr = qr->head;
 	int found = 0;
 
@@ -117,7 +109,6 @@ int Qcontains(queuerep_t* qr, int data){
 }
 
 int QcontainsCount(queuerep_t* qr, int data){
-	assert(qr != NULL);
 	queuenode_t* curr = qr->head;
 	int found = 0;
 
@@ -144,7 +135,6 @@ int QcontainsAll(queuerep_t* qrto, queuerep_t* qrfrom){
 }
 
 int QisEmpty(queuerep_t* qr){
-	assert(qr != NULL);
 	if (qr->head == NULL){
 		return 1;
 	}
@@ -154,7 +144,6 @@ int QisEmpty(queuerep_t* qr){
 }
 
 void Qremove(queuerep_t* qr, queuenode_t* qnpre, queuenode_t* qnrem){
-	assert( (qr != NULL) && (qnrem != NULL) );
 
 	if (qnpre == NULL){
 		qnpre = qnrem;
@@ -177,7 +166,6 @@ void Qremove(queuerep_t* qr, queuenode_t* qnpre, queuenode_t* qnrem){
 }
 
 void QremoveIfPresent(queuerep_t* qr, int data){
-	assert(qr != NULL);
 	while (qr->head->data == data){
 		Qremove(qr,NULL,qr->head);
 	}
@@ -194,7 +182,6 @@ void QremoveIfPresent(queuerep_t* qr, int data){
 }
 
 void QremoveAllIfPresent(queuerep_t* qrto, queuerep_t* qrfrom){
-	assert( (qrto != NULL) && (qrfrom != NULL));
 	queuenode_t* curr = qrfrom->head;
 
 	for (int i = 0; i < qrfrom->size; i++){
@@ -204,14 +191,12 @@ void QremoveAllIfPresent(queuerep_t* qrto, queuerep_t* qrfrom){
 }
 
 int Qsize(queuerep_t* qr){
-	assert(qr != NULL);
 	return qr->size;
 }
 
 //DIAG
 
 void QprintDiag(queuerep_t* qr){
-	assert(qr != NULL);
 	printf("------------------------------\n");
 	
 	printf("Queue Data:");
